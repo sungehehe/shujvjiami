@@ -4,9 +4,9 @@ import logging#导入logging模块，用于记录日志
 from datetime import datetime, timedelta#导入datetime模块，用于处理日期和时间
 from cryptography.hazmat.primitives.asymmetric import rsa, padding#导入rsa和padding模块，用于生成和验证RSA密钥
 from cryptography.hazmat.primitives import serialization, hashes#导入serialization和hashes模块，用于序列化和哈希
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.backends import default_backend
-from typing import Dict, Any, Optional, Union
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes#导入Cipher、algorithms和modes模块，用于加密和解密
+from cryptography.hazmat.backends import default_backend#导入default_backend模块，用于指定默认的后端
+from typing import Dict, Any, Optional, Union#导入Dict、Any、Optional和Union模块，用于类型提示
 
 # 配置日志记录
 logging.basicConfig(
