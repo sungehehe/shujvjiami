@@ -9,3 +9,34 @@
 2025-06-09 08:15:46,254 - DataEncryptionSystem - INFO - 生成新的数据密钥: 20250609081546
 2025-06-09 08:15:46,254 - DataEncryptionSystem - INFO - 数据分类为: 公开
 {"timestamp": "2025-06-09T08:15:46.254999", "operation": "\u6570\u636e\u5904\u7406", "user": "system", "data_category": "\u516c\u5f00", "success": true, "details": {"reason": "\u6570\u636e\u4e3a\u516c\u5f00\u7c7b\u578b\uff0c\u65e0\u9700\u52a0\u5bc6"}}
+2025-06-09 09:05:21,741 - DataEncryptionSystem - ERROR - 加载分类规则失败: 'gbk' codec can't decode byte 0xab in position 45: illegal multibyte sequence
+2025-06-09 09:05:21,744 - DataEncryptionSystem - INFO - 数据分类为: 公开
+{"timestamp": "2025-06-09T09:05:21.744674", "operation": "\u6570\u636e\u5904\u7406", "user": "system", "data_category": "\u516c\u5f00", "success": true, "details": {"reason": "\u6570\u636e\u4e3a\u516c\u5f00\u7c7b\u578b\uff0c\u65e0\u9700\u52a0\u5bc6"}}
+2025-06-09 09:10:28,001 - DataEncryptionSystem - INFO - 数据分类为: 公开
+{"timestamp": "2025-06-09T09:10:28.007274", "operation": "\u6570\u636e\u5904\u7406", "user": "system", "data_category": "\u516c\u5f00", "success": true, "details": {"reason": "\u6570\u636e\u4e3a\u516c\u5f00\u7c7b\u578b\uff0c\u65e0\u9700\u52a0\u5bc6"}}
+2025-06-09 09:12:02,589 - DataEncryptionSystem - INFO - 数据分类为: 公开
+{"timestamp": "2025-06-09T09:12:02.589736", "operation": "\u6570\u636e\u5904\u7406", "user": "system", "data_category": "\u516c\u5f00", "success": true, "details": {"reason": "\u6570\u636e\u4e3a\u516c\u5f00\u7c7b\u578b\uff0c\u65e0\u9700\u52a0\u5bc6"}}
+2025-06-09 09:15:58,912 - DataEncryptionSystem - INFO - 数据分类为: 公开
+{"timestamp": "2025-06-09T09:15:58.914623", "operation": "\u6570\u636e\u5904\u7406", "user": "system", "data_category": "\u516c\u5f00", "success": true, "details": {"reason": "\u6570\u636e\u4e3a\u516c\u5f00\u7c7b\u578b\uff0c\u65e0\u9700\u52a0\u5bc6"}}
+2025-06-09 09:18:50,556 - DataEncryptionSystem - INFO - 数据分类为: 公开
+{"timestamp": "2025-06-09T09:18:50.556625", "operation": "\u6570\u636e\u5904\u7406", "user": "system", "data_category": "\u516c\u5f00", "success": true, "details": {"reason": "\u6570\u636e\u4e3a\u516c\u5f00\u7c7b\u578b\uff0c\u65e0\u9700\u52a0\u5bc6"}}
+2025-06-09 09:26:02,971 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-09 09:26:02,971 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-09T09:26:03.232431", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": false, "details": {"error": ""}}
+2025-06-09 09:27:08,190 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-09 09:27:08,190 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-09T09:27:08.333708", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": false, "details": {"error": ""}}
+2025-06-09 09:29:08,120 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-09 09:29:08,120 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-09T09:29:08.358794", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": false, "details": {"error": ""}}
+2025-06-09 09:31:14,927 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-09 09:31:14,927 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-09T09:31:15.092646", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": false, "details": {"error": ""}}
+2025-06-09 09:32:44,204 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-09 09:32:44,204 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-09T09:32:44.381956", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": false, "details": {"error": "'iv'"}}
+2025-06-09 09:33:54,140 - DataEncryptionSystem - INFO - 生成新的数据密钥: 20250609093354
+2025-06-09 09:33:54,156 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-09 09:33:54,156 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-09T09:33:54.281951", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137, "encryption_type": "hybrid", "source": "\u7528\u6237\u6ce8\u518c\u8868\u5355", "location": "\u5317\u4eac", "application": "\u7528\u6237\u7ba1\u7406\u7cfb\u7edf"}}
+{"timestamp": "2025-06-09T09:33:54.290197", "operation": "\u6570\u636e\u89e3\u5bc6", "user": "admin", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137}}

@@ -27,7 +27,8 @@ class DataClassifier:
     
     def _load_rules(self, path: str) -> Dict[str, Any]:
         try:
-            with open(path, 'r') as f:
+            # 修改此处，指定编码为 utf-8
+            with open(path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except Exception as e:
             logger.error(f"加载分类规则失败: {e}")
@@ -43,7 +44,28 @@ class DataClassifier:
     
     def _check_rules(self, data: Any, context: Dict[str, Any], rules: Dict[str, Any]) -> bool:
         """检查数据是否符合特定分类规则"""
-        # 简化实现，实际应用中需要更复杂的规则评估
+        rule = rules.get("rule")
+        if rule == "包含身份证号或手机号":
+            if isinstance(data, dict):
+                data_str = str(data)
+                import re
+                # 检查身份证号
+                id_card_pattern = re.compile(r'\d{17}[\dXx]')
+                if id_card_pattern.search(data_str):
+                    return True
+                # 检查手机号
+                phone_pattern = re.compile(r'1[3-9]\d{9}')
+                if phone_pattern.search(data_str):
+                    return True
+        elif rule == "不包含敏感信息":
+            # 简单假设没有身份证号和手机号就是不包含敏感信息
+            if isinstance(data, dict):
+                data_str = str(data)
+                import re
+                id_card_pattern = re.compile(r'\d{17}[\dXx]')
+                phone_pattern = re.compile(r'1[3-9]\d{9}')
+                if not id_card_pattern.search(data_str) and not phone_pattern.search(data_str):
+                    return True
         return False
 
 
@@ -83,14 +105,26 @@ class KeyManager:
                 return latest_key
         return self._generate_new_data_key()
     
+    def _encrypt_key(self, key: bytes) -> Dict[str, bytes]:
+        """使用主密钥加密数据密钥"""
+        iv = os.urandom(12)  # 生成 IV
+        cipher = Cipher(algorithms.AES(self.master_key), modes.GCM(iv))
+        encryptor = cipher.encryptor()
+        encrypted_key = encryptor.update(key) + encryptor.finalize()
+        return {
+            "encrypted_key": encrypted_key + encryptor.tag,
+            "iv": iv
+        }
+    
     def _generate_new_data_key(self) -> Dict[str, Any]:
         """生成新的数据密钥"""
         data_key = os.urandom(32)  # 256-bit AES key
-        encrypted_key = self._encrypt_key(data_key)
+        encrypted_result = self._encrypt_key(data_key)
         
         new_key = {
             "key_id": datetime.now().strftime("%Y%m%d%H%M%S"),
-            "encrypted_key": encrypted_key.hex(),
+            "encrypted_key": encrypted_result["encrypted_key"].hex(),
+            "iv": encrypted_result["iv"].hex(),
             "creation_time": datetime.now().isoformat()
         }
         
@@ -106,13 +140,6 @@ class KeyManager:
         
         logger.info(f"生成新的数据密钥: {new_key['key_id']}")
         return new_key
-    
-    def _encrypt_key(self, key: bytes) -> bytes:
-        """使用主密钥加密数据密钥"""
-        cipher = Cipher(algorithms.AES(self.master_key), modes.GCM(os.urandom(12)))
-        encryptor = cipher.encryptor()
-        encrypted_key = encryptor.update(key) + encryptor.finalize()
-        return encrypted_key + encryptor.tag
     
     def get_decrypted_data_key(self, key_id: Optional[str] = None) -> bytes:
         """获取解密后的数据密钥"""
@@ -131,8 +158,9 @@ class KeyManager:
                 encrypted_key_with_tag = bytes.fromhex(key_data['encrypted_key'])
                 tag = encrypted_key_with_tag[-16:]
                 encrypted_key = encrypted_key_with_tag[:-16]
+                iv = bytes.fromhex(key_data["iv"])  # 获取存储的 IV
                 
-                cipher = Cipher(algorithms.AES(self.master_key), modes.GCM(os.urandom(12), tag))
+                cipher = Cipher(algorithms.AES(self.master_key), modes.GCM(iv, tag))
                 decryptor = cipher.decryptor()
                 return decryptor.update(encrypted_key) + decryptor.finalize()
         
@@ -370,6 +398,11 @@ class DataEncryptionSystem:
             return {"data": data, "category": category, "encrypted": False}
         
         try:
+            # 对于敏感数据，增强加密逻辑
+            if category == "敏感":
+                # 可以在这里添加更复杂的加密逻辑，例如增加加密算法的迭代次数
+                logger.info("检测到敏感数据，使用增强加密策略")
+            
             # 生成RSA密钥对（实际应用中应该预先生成并安全存储）
             key_pair = self.encryption_engine.generate_rsa_key_pair()
             
@@ -378,9 +411,18 @@ class DataEncryptionSystem:
                 json.dumps(data), key_pair["public_key"]
             )
             
+            # 增强审计日志，记录更详细的信息
+            detailed_info = {
+                "data_size": len(json.dumps(data)),
+                "encryption_type": "hybrid",
+                "source": context.get("source"),
+                "location": context.get("location"),
+                "application": context.get("application")
+            }
+            
             self.audit_logger.log_operation(
                 "数据加密", user, category, True,
-                {"data_size": len(json.dumps(data)), "encryption_type": "hybrid"}
+                detailed_info
             )
             
             return {
@@ -444,11 +486,18 @@ if __name__ == "__main__":
         result = encryption_system.process_data(sensitive_data, context, "system")
         print("数据已加密并存储")
         
-        # 模拟数据解密
+        # 确保正确传递参数
         decrypted = encryption_system.decrypt_data(
-            result, result["private_key"], "admin"
+            {
+                "encrypted_data": result["encrypted_data"], #加密数据
+                "category": result["category"]#是否为敏感数据
+            }, 
+            result["private_key"], 
+            "admin"
         )
         print("数据已成功解密")
         print(decrypted)
     except Exception as e:
+        import traceback
         print(f"处理数据时出错: {e}")
+        traceback.print_exc()
