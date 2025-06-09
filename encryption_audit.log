@@ -40,3 +40,7 @@
 2025-06-09 09:33:54,156 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
 {"timestamp": "2025-06-09T09:33:54.281951", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137, "encryption_type": "hybrid", "source": "\u7528\u6237\u6ce8\u518c\u8868\u5355", "location": "\u5317\u4eac", "application": "\u7528\u6237\u7ba1\u7406\u7cfb\u7edf"}}
 {"timestamp": "2025-06-09T09:33:54.290197", "operation": "\u6570\u636e\u89e3\u5bc6", "user": "admin", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137}}
+2025-06-09 10:21:15,742 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-09 10:21:15,742 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-09T10:21:15.921306", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137, "encryption_type": "hybrid", "source": "\u7528\u6237\u6ce8\u518c\u8868\u5355", "location": "\u5317\u4eac", "application": "\u7528\u6237\u7ba1\u7406\u7cfb\u7edf"}}
+{"timestamp": "2025-06-09T10:21:15.970016", "operation": "\u6570\u636e\u89e3\u5bc6", "user": "admin", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137}}
