@@ -44,3 +44,13 @@
 2025-06-09 10:21:15,742 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
 {"timestamp": "2025-06-09T10:21:15.921306", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137, "encryption_type": "hybrid", "source": "\u7528\u6237\u6ce8\u518c\u8868\u5355", "location": "\u5317\u4eac", "application": "\u7528\u6237\u7ba1\u7406\u7cfb\u7edf"}}
 {"timestamp": "2025-06-09T10:21:15.970016", "operation": "\u6570\u636e\u89e3\u5bc6", "user": "admin", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137}}
+2025-06-11 08:35:39,770 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-11 08:35:39,771 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-11T08:35:40.221621", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137, "encryption_type": "hybrid", "source": "\u7528\u6237\u6ce8\u518c\u8868\u5355", "location": "\u5317\u4eac", "application": "\u7528\u6237\u7ba1\u7406\u7cfb\u7edf"}}
+{"timestamp": "2025-06-11T08:35:40.227620", "operation": "\u6570\u636e\u89e3\u5bc6", "user": "admin", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137}}
+2025-06-11 08:37:22,648 - DataEncryptionSystem - INFO - 数据分类为: 公开
+{"timestamp": "2025-06-11T08:37:22.649878", "operation": "\u6570\u636e\u5904\u7406", "user": "system", "data_category": "\u516c\u5f00", "success": true, "details": {"reason": "\u6570\u636e\u4e3a\u516c\u5f00\u7c7b\u578b\uff0c\u65e0\u9700\u52a0\u5bc6"}}
+2025-06-11 08:37:57,830 - DataEncryptionSystem - INFO - 数据分类为: 敏感
+2025-06-11 08:37:57,831 - DataEncryptionSystem - INFO - 检测到敏感数据，使用增强加密策略
+{"timestamp": "2025-06-11T08:37:58.064530", "operation": "\u6570\u636e\u52a0\u5bc6", "user": "system", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137, "encryption_type": "hybrid", "source": "\u7528\u6237\u6ce8\u518c\u8868\u5355", "location": "\u5317\u4eac", "application": "\u7528\u6237\u7ba1\u7406\u7cfb\u7edf"}}
+{"timestamp": "2025-06-11T08:37:58.075530", "operation": "\u6570\u636e\u89e3\u5bc6", "user": "admin", "data_category": "\u654f\u611f", "success": true, "details": {"data_size": 137}}

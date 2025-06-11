@@ -9,62 +9,78 @@ from cryptography.hazmat.backends import default_backend#导入default_backend�
 from typing import Dict, Any, Optional, Union#导入Dict、Any、Optional和Union模块，用于类型提示
 
 # 配置日志记录
+# 配置日志系统，设置日志的基本属性
 logging.basicConfig(
+    # 设置日志级别为 INFO，意味着只记录 INFO 及以上级别的日志
     level=logging.INFO,
+    # 定义日志的输出格式，包含时间、日志名称、日志级别和日志消息
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    # 定义日志处理器列表，将日志同时输出到文件和控制台
     handlers=[
+        # 将日志写入名为 encryption_audit.log 的文件
         logging.FileHandler("encryption_audit.log"),
+        # 将日志输出到控制台
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger("DataEncryptionSystem")
 
+# 定义数据分类分级模块的类
 class DataClassifier:
     """数据分类分级模块"""
     
+    # 类的构造函数，初始化时加载分类规则
     def __init__(self, classification_rules_path: str):
+        # 调用 _load_rules 方法加载分类规则，并将结果存储在 self.rules 中
         self.rules = self._load_rules(classification_rules_path)
     
+    # 私有方法，用于从指定路径加载分类规则文件
     def _load_rules(self, path: str) -> Dict[str, Any]:
         try:
-            # 修改此处，指定编码为 utf-8
+            # 以只读模式打开文件，并指定编码为 utf-8
             with open(path, 'r', encoding='utf-8') as f:
+                # 将文件内容解析为 JSON 格式并返回
                 return json.load(f)
         except Exception as e:
+            # 若加载失败，记录错误日志
             logger.error(f"加载分类规则失败: {e}")
+            # 返回空字典
             return {}
     
+    # 根据预定义规则对数据进行分类分级的方法
     def classify_data(self, data: Any, context: Dict[str, Any]) -> str:
         """根据预定义规则对数据进行分类分级"""
         # 实际实现需要基于具体业务规则
+        # 遍历所有分类和对应的规则
         for category, rules in self.rules.items():
+            # 调用 _check_rules 方法检查数据是否符合当前规则
             if self._check_rules(data, context, rules):
+                # 若符合规则，返回对应的分类
                 return category
+        # 若所有规则都不满足，默认返回 '公开'
         return "公开"
     
+    # 私有方法，用于检查数据是否符合特定分类规则
     def _check_rules(self, data: Any, context: Dict[str, Any], rules: Dict[str, Any]) -> bool:
         """检查数据是否符合特定分类规则"""
+        # 从规则字典中获取规则描述
         rule = rules.get("rule")
         if rule == "包含身份证号或手机号":
+            # 若规则是检查是否包含身份证号或手机号
             if isinstance(data, dict):
+                # 将字典类型的数据转换为字符串
                 data_str = str(data)
+                # 导入正则表达式模块
                 import re
-                # 检查身份证号
-                id_card_pattern = re.compile(r'\d{17}[\dXx]')
+                # 定义身份证号的正则表达式模式
+                id_card_pattern = re.compile(r'\d{17}[\dXx]')#等价于字符类 [0-9]{17}[0-9Xx] {17个连续的数字最后是数字或X或x}
+                # 检查数据中是否包含身份证号
                 if id_card_pattern.search(data_str):
                     return True
-                # 检查手机号
-                phone_pattern = re.compile(r'1[3-9]\d{9}')
+                # 定义手机号的正则表达式模式
+                phone_pattern = re.compile(r'1[3-9]\d{9}')#等价于字符类 [1][3-9][0-9]{9} {1开头，第二位是3-9，后面9位是0-9}
+                # 检查数据中是否包含手机号
                 if phone_pattern.search(data_str):
-                    return True
-        elif rule == "不包含敏感信息":
-            # 简单假设没有身份证号和手机号就是不包含敏感信息
-            if isinstance(data, dict):
-                data_str = str(data)
-                import re
-                id_card_pattern = re.compile(r'\d{17}[\dXx]')
-                phone_pattern = re.compile(r'1[3-9]\d{9}')
-                if not id_card_pattern.search(data_str) and not phone_pattern.search(data_str):
                     return True
         return False
 
