@@ -1,6 +1,6 @@
 import os
 
-key_storage_path = "./keys"  # 根据你的配置修改路径
+key_storage_path = "./keys"  
 master_key_path = os.path.join(key_storage_path, "master.key")
 
 try:

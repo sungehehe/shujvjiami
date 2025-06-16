@@ -1,0 +1,5 @@
+{
+    "frequent_access_threshold": 100,  
+    "unusual_time_threshold": 2,       
+    "failed_attempts_threshold": 5     
+}

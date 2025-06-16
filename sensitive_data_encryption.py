@@ -481,13 +481,11 @@ class AuditLogger:
         Args:
             entry (Dict[str, Any]): 要检查的日志条目。
         """
-        # 简化的异常检测逻辑
         # 如果操作失败，检查用户的失败尝试次数
         if not entry["success"]:
             self._check_failed_attempts(entry["user"])
         
         # 可以添加更多异常检测逻辑
-        # ...
     
     def _check_failed_attempts(self, user: str):
         """检查用户失败尝试次数
@@ -704,3 +702,45 @@ if __name__ == "__main__":
         import traceback
         print(f"处理数据时出错: {e}")
         traceback.print_exc()
+
+
+# 假设已经有 DataEncryptionSystem 实例 encryption_system
+# 包含姓名、身份证号、手机号和地址的多组敏感数据列表
+sensitive_data_list = [
+    {
+        'data': {
+            '姓名': '张三',
+            '身份证号': '11010519491231002X',
+            '手机号': '13800138000',
+            '地址': '北京市朝阳区建国路 1 号'
+        },
+        'context': {'source': '用户注册表单'}
+    },
+    {
+        'data': {
+            '姓名': '李四',
+            '身份证号': '0',
+            '手机号': '0',
+            '地址': '深圳市南山区科技园科苑路 2 号'
+        },
+        'context': {'source': '用户注册表单'}
+    }
+]
+
+# 用于存储加密结果的列表
+encrypted_results = []
+
+# 遍历多组数据并加密
+for data_info in sensitive_data_list:
+    sensitive_data = data_info['data']
+    context = data_info['context']
+    try:
+        result = encryption_system.process_data(sensitive_data, context, "system")
+        encrypted_results.append(result)#添加到列表中
+        logger.info(f"成功加密数据: {sensitive_data}")
+    except Exception as e:
+        logger.error(f"加密数据 {sensitive_data} 时出错: {e}")
+
+# 打印加密结果
+#for result in encrypted_results:
+#    print("加密后的数据:", result)  
